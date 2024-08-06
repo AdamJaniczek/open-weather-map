@@ -27,6 +27,8 @@ public class WeatherService {
             return restTemplate.getForObject(url, WeatherResponseDto.class);
         } catch (HttpClientErrorException e) {
             throw new CityNotFoundException(city);
+        } catch (Exception e) {
+            throw new RuntimeException();
         }
     }
 }
