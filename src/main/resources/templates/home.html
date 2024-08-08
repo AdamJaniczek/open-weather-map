@@ -8,13 +8,16 @@
 <body>
 <div class="container">
     <div class="row">
-        <h1 class="text-center">Pogoda dla twojego miasta</h1>
+        <h1 class="text-center">
+            <a th:href="@{/}">Pogoda dla twojego miasta</a>
+        </h1>
     </div>
     <div class="row">
-        <form th:action="@{/search}" method="post" class="row g-2 justify-content-center">
+        <form th:action="@{/search}" method="get" class="row g-2 justify-content-center">
             <div class="col-auto">
                 <input class="form-control" name="name" placeholder="np. Warszawa">
                 <input name="units" value="metric" hidden=>
+                <input name="lang" value="pl" hidden=>
             </div>
             <div class="col-auto">
                 <button class="btn btn-info mb-5">Szukaj</button>

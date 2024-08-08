@@ -8,13 +8,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.com.itsystems.openweathermap.dto.WeatherResponseDto;
 import pl.com.itsystems.openweathermap.exception.CityNotFoundException;
 
+import java.nio.charset.StandardCharsets;
+
 @Service
 public class WeatherService {
 
     @Value("${appid}")
     private String apiKey;
 
-    public WeatherResponseDto getWeather(String city, String units) {
+    public WeatherResponseDto getWeather(String city, String units, String lang) {
         RestTemplate restTemplate = new RestTemplate();
         try {
             String url = UriComponentsBuilder.fromHttpUrl("https://api.openweathermap.org")
@@ -22,7 +24,8 @@ public class WeatherService {
                     .queryParam("q", city)
                     .queryParam("appid", apiKey)
                     .queryParam("units", units)
-                    .queryParam("lang", "pl")
+                    .queryParam("lang", lang)
+                    .encode(StandardCharsets.ISO_8859_1)
                     .toUriString();
             return restTemplate.getForObject(url, WeatherResponseDto.class);
         } catch (HttpClientErrorException e) {
